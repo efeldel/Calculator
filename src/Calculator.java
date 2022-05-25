@@ -1,4 +1,6 @@
-import java.io.*;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
 
 class Calculator {
     static double a = 0;
@@ -6,14 +8,15 @@ class Calculator {
     static String expression = null;
 
     public static void main(String[] args) {
-        // Ввод данных из консоли
-       // System.out.println("Введите выражение для вычисления:");
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-            expression = br.readLine();
-        }
-        catch (IOException ex) {
+        // Ввод данных из файла
+        try(FileReader fr = new FileReader("input.txt"))  {
+            Scanner sc = new Scanner(fr);
+            expression = sc.nextLine();
+            sc.close();
+        } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
+
         // Вывод в консоль
         try {
             System.out.println(calculate(expression));
@@ -31,14 +34,14 @@ class Calculator {
                 throw new IllegalArgumentException("Error! Not number");
             }
 
-                switch (s.split(" ")[1].charAt(0)) {
-                    case '+':
+                switch (s.split(" ")[1]) {
+                    case "+":
                         return add(a,b);
-                    case '-':
+                    case "-":
                         return sub(a,b);
-                    case '*':
+                    case "*":
                         return mul(a,b);
-                    case  '/':
+                    case  "/":
                         if (b != 0) {
                             return div(a, b);
                         } else {
