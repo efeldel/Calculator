@@ -1,5 +1,4 @@
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 
 class Calculator {
@@ -8,7 +7,7 @@ class Calculator {
     static String expression = null;
 
     public static void main(String[] args) {
-        // Ввод данных из файла
+        // Input from file
         try(FileReader fr = new FileReader("input.txt"))  {
             Scanner sc = new Scanner(fr);
             expression = sc.nextLine();
@@ -17,10 +16,12 @@ class Calculator {
             System.out.println(ex.getMessage());
         }
 
-        // Вывод в консоль
+        // Output in file
         try {
-            System.out.println(calculate(expression));
-        } catch (IllegalArgumentException e) {
+            FileWriter fw = new FileWriter("output.txt");
+            fw.write(String.valueOf(calculate(expression)));
+            fw.close();
+        } catch (IllegalArgumentException | IOException e) {
             System.out.println(e.getMessage());
         }
     }
