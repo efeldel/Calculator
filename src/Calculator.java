@@ -1,15 +1,25 @@
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 class Calculator {
     static double a = 0;
     static double b = 0;
+    static String expression = null;
 
     public static void main(String[] args) {
-        // Ввод данных из консоли
-        Scanner sc = new Scanner(System.in);
+        // Ввод данных из файла
+        try(FileReader fr = new FileReader("input.txt"))  {
+            Scanner sc = new Scanner(fr);
+            expression = sc.nextLine();
+            sc.close();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+
         // Вывод в консоль
         try {
-            System.out.println(calculate(sc.nextLine()));
+            System.out.println(calculate(expression));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
