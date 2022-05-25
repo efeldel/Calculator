@@ -1,19 +1,15 @@
-import java.io.*;
 import java.util.Scanner;
 
 class Calculator {
     static double a = 0;
     static double b = 0;
-    static String expression = null;
 
     public static void main(String[] args) {
         // Ввод данных из консоли
-       // System.out.println("Введите выражение для вычисления:");
         Scanner sc = new Scanner(System.in);
-            expression = sc.nextLine();
         // Вывод в консоль
         try {
-            System.out.println(calculate(expression));
+            System.out.println(calculate(sc.nextLine()));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
@@ -28,14 +24,14 @@ class Calculator {
                 throw new IllegalArgumentException("Error! Not number");
             }
 
-                switch (s.split(" ")[1].charAt(0)) {
-                    case '+':
+                switch (s.split(" ")[1]) {
+                    case "+":
                         return add(a,b);
-                    case '-':
+                    case "-":
                         return sub(a,b);
-                    case '*':
+                    case "*":
                         return mul(a,b);
-                    case  '/':
+                    case  "/":
                         if (b != 0) {
                             return div(a, b);
                         } else {
