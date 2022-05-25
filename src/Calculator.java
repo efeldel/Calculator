@@ -10,20 +10,22 @@ class Calculator {
         FileWriter fw = new FileWriter("output.txt");
 
         // Input from file
-        try(FileReader fr = new FileReader("input.txt"))  {
-            Scanner sc = new Scanner(fr);
-            expression = sc.nextLine();
-            sc.close();
+        try(FileReader fr = new FileReader("input.txt");
+            Scanner sc = new Scanner(fr))  {
+            while (sc.hasNextLine()) {
+                expression = sc.nextLine();
+                // Output in file
+                try {
+                    fw.write(expression + " = "
+                            + (calculate(expression)) + "\n");
+                } catch (IllegalArgumentException e) {
+                    fw.write(expression + " = "
+                            + e.getMessage()+ "\n");
+                }
+            }
         } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        // Output in file
-        try {
-            fw.write(String.valueOf(calculate(expression)));
-            fw.close();
-        } catch (IllegalArgumentException e) {
-            fw.write(e.getMessage());
+            fw.write(ex.getMessage()+ "\n");
+        } finally {
             fw.close();
         }
     }
