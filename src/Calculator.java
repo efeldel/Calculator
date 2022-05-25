@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Scanner;
 
 class Calculator {
     static double a = 0;
@@ -8,12 +9,8 @@ class Calculator {
     public static void main(String[] args) {
         // Ввод данных из консоли
        // System.out.println("Введите выражение для вычисления:");
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-            expression = br.readLine();
-        }
-        catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
+        Scanner sc = new Scanner(System.in);
+            expression = sc.nextLine();
         // Вывод в консоль
         try {
             System.out.println(calculate(expression));
