@@ -6,7 +6,9 @@ class Calculator {
     static double b = 0;
     static String expression = null;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        FileWriter fw = new FileWriter("output.txt");
+
         // Input from file
         try(FileReader fr = new FileReader("input.txt"))  {
             Scanner sc = new Scanner(fr);
@@ -18,11 +20,11 @@ class Calculator {
 
         // Output in file
         try {
-            FileWriter fw = new FileWriter("output.txt");
             fw.write(String.valueOf(calculate(expression)));
             fw.close();
-        } catch (IllegalArgumentException | IOException e) {
-            System.out.println(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            fw.write(e.getMessage());
+            fw.close();
         }
     }
 
